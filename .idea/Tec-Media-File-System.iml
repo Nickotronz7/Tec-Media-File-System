@@ -6,8 +6,10 @@
       <sourceFolder url="file://$MODULE_DIR$/server.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/main.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/client.h" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/tinyxml2.h" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/server.cpp" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/client.cpp" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/tinyxml2.cpp" isTestSource="false" />
     </content>
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
