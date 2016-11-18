@@ -1,5 +1,5 @@
 /**
- * Path : "/home/nickotronz7/Desktop/prueba.txt"
+ * Path : "/home/nickotronz7/Desktop/prueba.xml"
  */
 
 #include <iostream>
@@ -8,6 +8,11 @@
 #include <cstring>
 #include <vector>
 #include "tinyxml2.h"
+#include "client.h"
+#include <fstream>
+#include <sys/stat.h>
+#include "client.h"
+#include "server.h"
 
 using namespace tinyxml2;
 using namespace std;
@@ -17,51 +22,38 @@ using namespace std;
 #endif
 
 void write(FILE * file);
+int get_file_size(std::string filename);
 
 int main()
 {
-    FILE * file;
-    file = fopen ("/home/nickotronz7/Desktop/kokkachi.xml", "a+");
-    //write(pFile);
+    Client * cliente = new Client();
+    Server * servidor = new Server();
 
-    int myints[] = {20, 40, 7, 12};
-    vector<int> vec (myints, myints + sizeof(myints)/sizeof(int));
+    string path = "/home/nickotronz7/Desktop/prueba.xml";
 
+    //servidor->server();
+    cliente->client();
+/*
     XMLDocument xmlDoc;
-    xmlDoc.LoadFile(file);
+   //xmlDoc.LoadFile(file);
     XMLNode * pRoot = xmlDoc.NewElement("Root");
     xmlDoc.InsertFirstChild(pRoot);
-    XMLElement * pElement = xmlDoc.NewElement("IntValue");
 
-    pElement->SetText(10);
+    XMLElement * pElement = xmlDoc.NewElement("ip");
+    pElement->SetText("127.0.0.1");
     pRoot->InsertEndChild(pElement);
 
-    pElement = xmlDoc.NewElement("FloatValue");
-    pElement->SetText(0.5f);
+    pElement = xmlDoc.NewElement("port");
+    pElement->SetText(1101);
     pRoot->InsertEndChild(pElement);
 
-    pElement = xmlDoc.NewElement("Date");
-    pElement->SetAttribute("day", 5);
-    pElement->SetAttribute("month", "Febrero");
-    pElement->SetAttribute("year", 1997);
-    pElement->SetAttribute("dateFormat", "5/02/1997");
+    pElement = xmlDoc.NewElement("path");
+    pElement->SetText("/home/nickotronz7/Desktop/Path/");
     pRoot->InsertEndChild(pElement);
 
-    pElement = xmlDoc.NewElement("List");
-    for (const auto & item : vec)
-    {
-        XMLElement * pListElement = xmlDoc.NewElement("Item");
-        pListElement->SetText(item);
-
-        pElement->InsertEndChild(pListElement);
-    }
-    pElement->SetAttribute("itemCount", 4);
-    pRoot->InsertEndChild(pElement);
-
-    XMLError eResult = xmlDoc.SaveFile(file, true);
+    XMLError eResult = xmlDoc.SaveFile("/home/nickotronz7/Desktop/prueba.xml");
     XMLCheckResult(eResult);
-
-    fclose(file);
+*/
     return 0;
 }
 
@@ -83,4 +75,14 @@ void write(FILE * file)
         }
     }
     fputs("\n", file);
+}
+
+int get_file_size(std::string filename) // path to file
+{
+    FILE *p_file = NULL;
+    p_file = fopen(filename.c_str(),"rb");
+    fseek(p_file,0,SEEK_END);
+    int size = ftell(p_file);
+    fclose(p_file);
+    return size;
 }
