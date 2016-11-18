@@ -16,6 +16,9 @@
 #include <array>
 #include <iostream>
 #include <malloc.h>
+//#include <iostream>
+
+using namespace std;
 
 class Client
 {
@@ -28,7 +31,6 @@ private:
 
     struct sockaddr_in my_addr;
 
-    char buffer[1024];
     int bytecount;
     int buffer_len=0;
 

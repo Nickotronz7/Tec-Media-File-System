@@ -1,10 +1,27 @@
+#include <ios>
+#include <bits/ios_base.h>
 #include "client.h"
+#include <fstream>
 
 
 using namespace std;
 
 void Client::client()
 {
+
+    ifstream infile ("/home/nickotronz7/Desktop/prueba.xml" ,ifstream::binary);
+
+    // get size of file
+    infile.seekg (0,infile.end);
+    long size = infile.tellg();
+    infile.seekg (0);
+
+    // allocate memory for file content
+    char * buffer = new char[size];
+
+    // read content of infile
+    infile.read (buffer,size);
+    buffer[size] = size;
 
     host_port = 1101;
     host_name = "127.0.0.1";
@@ -19,10 +36,10 @@ void Client::client()
     *p_int = 1;
 
     if( (setsockopt(hsock, SOL_SOCKET, SO_REUSEADDR, (char*)p_int, sizeof(int)) == -1 )||
-        (setsockopt(hsock, SOL_SOCKET, SO_KEEPALIVE, (char*)p_int, sizeof(int)) == -1 ) ){
+        (setsockopt(hsock, SOL_SOCKET, SO_KEEPALIVE, (char*)p_int, sizeof(int)) == -1 ) )
+    {
         printf("Error setting options %d\n",errno);
         free(p_int);
-         
     }
     free(p_int);
 
@@ -41,14 +58,7 @@ void Client::client()
 
     //Now lets do the client related stuff
 
-    buffer_len = 1024;
-
-    memset(buffer, '\0', buffer_len);
-
-    printf("Enter some text to send to the server (press enter)\n");
-
-    fgets(buffer, 1024, stdin);
-    buffer[strlen(buffer)-1]='\0';
+//    printf(sizeof(&buffer));
 
     if( (bytecount=send(hsock, buffer, strlen(buffer),0))== -1){
         fprintf(stderr, "Error sending data %d\n", errno);
@@ -56,7 +66,7 @@ void Client::client()
     }
     printf("Sent bytes %d\n", bytecount);
 
-    if((bytecount = recv(hsock, buffer, buffer_len, 0))== -1){
+    if((bytecount = recv(hsock, buffer, size, 0))== -1){
         fprintf(stderr, "Error receiving data %d\n", errno);
          
     }
