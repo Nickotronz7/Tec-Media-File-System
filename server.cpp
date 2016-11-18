@@ -1,3 +1,5 @@
+#include <fstream>
+#include <iostream>
 #include "server.h"
 
 using namespace std;
@@ -84,20 +86,25 @@ void * socketHandler(void* lp){
 
     if((bytecount = recv(*csock, buffer, buffer_len, 0))== -1){
         fprintf(stderr, "Error al recivir data %d\n", errno);
-        goto FINISH;
+        //goto FINISH;
     }
 
+    ofstream outfile("/home/nickotronz7/Desktop/SERVER_ECHO.xml");
 
+    outfile.write(buffer, 132);
+    outfile.close();
+
+/*
     printf("Bytes recividos %d\nMensaje recivido \"%s\"\nDe %s\n", bytecount, buffer,inet_ntoa(sadr.sin_addr));
     strcat(buffer, " SERVER ECHO");
-
+*/
     if((bytecount = send(*csock, buffer, strlen(buffer), 0))== -1){
         fprintf(stderr, "Error al responder data %d\n", errno);
         goto FINISH;
     }
 
 
-    cout << buffer << endl;
+    //cout << buffer << endl;
     printf("Sent bytes %d\n", bytecount);
 
 
