@@ -32,7 +32,7 @@ private:
     struct sockaddr_in my_addr;
 
     int bytecount;
-    int buffer_len=0;
+    int buffer_len = 1024;
 
     int hsock;
     int * p_int;

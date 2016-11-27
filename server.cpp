@@ -67,14 +67,6 @@ void Server::server()
     ;
 }
 
-int Server::getHost_port() const {
-    return host_port;
-}
-
-void Server::setHost_port(int host_port) {
-    Server::host_port = host_port;
-}
-
 void * socketHandler(void* lp){
     int *csock = (int*)lp;
 
@@ -82,7 +74,7 @@ void * socketHandler(void* lp){
     char buffer[buffer_len];
     int bytecount;
 
-    memset(buffer, 0, buffer_len);
+    memset(buffer, ' ', buffer_len);
 
     if((bytecount = recv(*csock, buffer, buffer_len, 0))== -1){
         fprintf(stderr, "Error al recivir data %d\n", errno);
@@ -91,7 +83,7 @@ void * socketHandler(void* lp){
 
     ofstream outfile("/home/nickotronz7/Desktop/SERVER_ECHO.xml");
 
-    outfile.write(buffer, 132);
+    outfile.write(buffer, buffer_len);
     outfile.close();
 
 /*

@@ -1,5 +1,4 @@
 #include <ios>
-#include <bits/ios_base.h>
 #include "client.h"
 #include <fstream>
 
@@ -17,11 +16,11 @@ void Client::client()
     infile.seekg (0);
 
     // allocate memory for file content
-    char * buffer = new char[size];
+    char * buffer = new char[buffer_len];
+    memset(buffer, ' ', buffer_len);
 
     // read content of infile
     infile.read (buffer,size);
-    buffer[size] = size;
 
     host_port = 1101;
     host_name = "127.0.0.1";
@@ -57,8 +56,7 @@ void Client::client()
     }
 
     //Now lets do the client related stuff
-
-//    printf(sizeof(&buffer));
+    // printf(sizeof(&buffer));
 
     if( (bytecount=send(hsock, buffer, strlen(buffer),0))== -1){
         fprintf(stderr, "Error sending data %d\n", errno);

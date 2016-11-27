@@ -20,8 +20,6 @@ class Server
 {
 public:
     void server();
-    int getHost_port() const;
-    void setHost_port(int host_port);
 
 private:
     int host_port;

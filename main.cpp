@@ -13,9 +13,11 @@
 #include <sys/stat.h>
 #include "client.h"
 #include "server.h"
+#include "Striper.h"
 
-using namespace tinyxml2;
 using namespace std;
+/*
+using namespace tinyxml2;
 
 #ifndef XMLCheckResult
 #define XMLCheckResult(a_eResult) if (a_eResult != XML_SUCCESS) { printf("Error: %i\n", a_eResult); return a_eResult; }
@@ -33,9 +35,8 @@ int main()
 
     //servidor->server();
     cliente->client();
-/*
+
     XMLDocument xmlDoc;
-   //xmlDoc.LoadFile(file);
     XMLNode * pRoot = xmlDoc.NewElement("Root");
     xmlDoc.InsertFirstChild(pRoot);
 
@@ -51,10 +52,48 @@ int main()
     pElement->SetText("/home/nickotronz7/Desktop/Path/");
     pRoot->InsertEndChild(pElement);
 
+    pElement = xmlDoc.NewElement("fPersona");
+    pElement->SetAttribute("fName", "Nickolas");
+    pElement->SetAttribute("sName", "Javier");
+    pElement->SetAttribute("fLastName", "Rodríguez");
+    pElement->SetAttribute("sLastName", "Cordero");
+    pElement->SetAttribute("edad", 19);
+    pRoot->InsertEndChild(pElement);
+
+    pElement = xmlDoc.NewElement("List");
+    int veclen = 32;
+    vector<int> vecList[veclen];
+    for (int i = 0; i < veclen; ++i) {
+        vecList[i] = {i};
+    }
+    //vecList = {0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20};
+    for (int item = 0; item < veclen; item++)
+    {
+        XMLElement * pListElement = xmlDoc.NewElement("Item");
+        pListElement->SetText(item);
+
+        pElement->InsertEndChild(pListElement);
+    }
+    //int size = vecList.size();
+    pElement->SetAttribute("itemCount", veclen);
+    pRoot->InsertEndChild(pElement);
+
     XMLError eResult = xmlDoc.SaveFile("/home/nickotronz7/Desktop/prueba.xml");
     XMLCheckResult(eResult);
-*/
+
     return 0;
+}
+*/
+
+/* Copiador de ficheros a trozos en C*/
+
+int main()
+{
+    Striper * s = new Striper();
+
+    s->setFichOrg("foto.JPG");
+    s->setFichDest("ca.JPG");
+    s->stripe(3);
 }
 
 void write(FILE * file)
